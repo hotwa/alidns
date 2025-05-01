@@ -50,6 +50,27 @@ tls {
 }
 ```
 
+## caddyfile in docker
+
+```
+{
+    debug
+}
+
+example.domain.com {
+    reverse_proxy 172.24.0.13:8080
+
+    tls {
+        dns alidns {
+            access_key_id     {env.ALIYUN_ACCESS_KEY_ID}
+            access_key_secret {env.ALIYUN_ACCESS_KEY_SECRET}
+        }
+    resolvers 8.8.8.8 1.1.1.1
+    }
+}
+
+```
+
 You can replace `{env.ALIYUN_ACCESS_KEY_ID}`,`{env.ALIYUN_ACCESS_KEY_SECRET}` with the actual auth token in the `""` if you prefer to put it directly in your config instead of an environment variable.
 
 
