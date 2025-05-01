@@ -1,4 +1,4 @@
-FROM caddy:2.9-builder AS builder
+FROM caddy:2-builder AS builder
 
 
 RUN go env -w GO111MODULE=on \
@@ -6,11 +6,9 @@ RUN go env -w GO111MODULE=on \
 
 RUN xcaddy build \
     --with github.com/caddy-dns/alidns \
-    --with github.com/libdns/libdns@v0.2.2
+    --with github.com/caddy-dns/cloudflare 
 
-FROM caddy:2.9
+FROM caddy:2
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
-
-COPY Caddyfile /etc/caddy/Caddyfile
 
